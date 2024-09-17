@@ -101,7 +101,8 @@ public function getCommande()
     }
 
     public function payer(){
-        $stripe = new StripeClient('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');
+        $stripe = new StripeClient(env('VITE_STRIPE_SECRET_KEY'));
+
 
         try {
 
