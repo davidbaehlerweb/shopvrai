@@ -1,0 +1,10 @@
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white; /* Assurez-vous que la couleur de fond est visible */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ajoutez une ombre pour un effet de profondeur */
+  }
+  
