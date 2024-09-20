@@ -101,7 +101,7 @@ public function getCommande()
     }
 
     public function payer(){
-        $stripe = new StripeClient(env('VITE_STRIPE_SECRET_KEY'));
+        $stripe = new StripeClient(env('VITE_STRIPE_SECRET_KEY')); // Utilisez env() pour récupérer la clé en toute sécurité
 
 
         try {
