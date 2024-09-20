@@ -100,33 +100,7 @@ public function getCommande()
         return response()->json(['message' => 'Produit supprimé du panier avec succès'], 200);
     }
 
-    public function payer(){
-        $stripe = new StripeClient(env('VITE_STRIPE_SECRET_KEY')); // Utilisez env() pour récupérer la clé en toute sécurité
-
-
-        try {
-
-            $jsonStr = file_get_contents('php://input');
-            $jsonObj = json_decode($jsonStr);
-
-
-            $res = $stripe->paymentIntents->create([
-                'amount' => $jsonObj->items->amount,
-                'currency' => 'chf',
-                'automatic_payment_methods' => [
-                'enabled' => true,
-                ],
-            ]);
-            $output = [
-                'clientSecret' =>  $res->client_secret,
-            ];
-
-            echo json_encode($output);
-        } catch (\Error $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-    }
+    
 
     public function updatePaymentStatus(Request $request)
 {
