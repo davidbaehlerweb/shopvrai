@@ -6,7 +6,8 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  const { id, uniqueInstanceId } = useParams(); // Récupère uniqueInstanceId depuis les paramètres d'URL
+  const { id, uniqueInstanceId } = useParams();
+ // Récupère uniqueInstanceId depuis les paramètres d'URL
   const navigate = useNavigate();
 
   const [message, setMessage] = useState(null);
@@ -50,7 +51,9 @@ export default function CheckoutForm() {
             switch (paymentIntent.status) {
                 case "succeeded":
                     
-                    testUpdate(); 
+                 testUpdate(uniqueInstanceId);
+                 navigate("/");
+
                     break;
                 case "processing":
                     setMessage("Your payment is processing.");
@@ -72,81 +75,96 @@ export default function CheckoutForm() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   
-
   if (!stripe || !elements) {
-      
-      return;
+    return;
   }
 
   setIsLoading(true);
 
   try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
-          elements,
-          confirmParams: {
-              return_url: window.location.href, // Utilisez l'URL actuelle pour le retour après paiement
-          },
-          redirect: "if_required" // Utilisez 'if_required' pour gérer la redirection manuellement
-      });
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.href,
+      },
+      redirect: "if_required"
+    });
 
-      
+    if (error) {
+      setMessage(error.message);
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      // Mettez à jour tous les éléments après la confirmation du paiement
+      await updateAllItems();
+      setMessage("Payment confirmed and status updated.");
 
-      if (error) {
-          
-          setMessage(error.message);
-      } else if (paymentIntent && paymentIntent.status === "succeeded") {
-          
-          await testUpdate(); // Attendez que la mise à jour soit terminée
-          setMessage("Payment confirmed and status updated.");
-      } else {
-          
-          setMessage("Unexpected error.");
-      }
+      // Rediriger vers la page d'accueil après toutes les mises à jour
+      navigate("/");
+    } else {
+      setMessage("Unexpected error.");
+    }
 
   } catch (err) {
-      
-      setMessage("Error during payment confirmation.");
+    setMessage("Error during payment confirmation.");
   } finally {
-      setIsLoading(false);
+    setIsLoading(false);
   }
 };
 
-const testUpdate = async () => {
+// Fonction pour mettre à jour toutes les instances de produits
+const updateAllItems = async () => {
   try {
-      
-      
-      // Récupérez le token depuis le localStorage
-      const token = localStorage.getItem('token');
-      if (!token) {
-          
-          setMessage('Erreur : utilisateur non authentifié.');
-          return;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setMessage('Erreur : utilisateur non authentifié.');
+      return;
+    }
+
+    // Obtenez tous les identifiants uniques des produits dans le panier
+    const cartResponse = await axios.get('http://localhost:8000/api/get-cart', {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
+    });
 
-      // Utilisez l'ID unique de l'URL
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
-
-      const response = await axios.post('http://localhost:8000/api/update-payment-status', {
-        produit_id: id,
-        unique_instance_id: uniqueInstanceId // Utilisez l'ID unique récupéré depuis les paramètres d'URL
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      });
-
-      
-      setMessage('Update succeeded!');
-      
-      // Redirigez l'utilisateur seulement après la mise à jour réussie
-      navigate("/"); 
+    const cartItems = cartResponse.data.cartItems;
+    for (const item of cartItems) {
+      await testUpdate(item.unique_instance_id); // Passez chaque uniqueInstanceId pour mise à jour
+    }
   } catch (error) {
-      
-      setMessage('Update failed.');
+    setMessage('Update failed.');
   }
 };
+
+// Fonction mise à jour individuelle
+const testUpdate = async (uniqueInstanceId) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setMessage('Erreur : utilisateur non authentifié.');
+      return;
+    }
+
+    await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
+
+    const response = await axios.post('http://localhost:8000/api/update-payment-status', {
+      unique_instance_id: uniqueInstanceId // Utilisation de l'ID unique
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
+
+    console.log(`Update for ${uniqueInstanceId} succeeded!`);
+  } catch (error) {
+    console.error(`Update for ${uniqueInstanceId} failed.`, error);
+  }
+};
+
+
+
+
 
 const paymentElementOptions = {
   layout: "tabs"

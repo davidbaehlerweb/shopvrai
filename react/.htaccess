@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+    php_flag opcache.enable Off
+
+</IfModule>

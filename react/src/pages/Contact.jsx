@@ -43,7 +43,7 @@ const Contact = () => {
             message: message
         };
     
-        emailjs.send('service_ul274ad', 'template_hh2um1s', templateParams, '5Q1epSZtz49NPieoF')
+        emailjs.send(import.meta.env.VITE_EMAIL_JS_SERVICE, import.meta.env.VITE_EMAIL_JS_TEMPLATE, templateParams, import.meta.env.VITE_EMAIL_JS_ID)
             .then((result) => {
                 
                 setSuccessMessage('Votre message a été envoyé avec succès !');

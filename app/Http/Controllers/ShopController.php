@@ -136,24 +136,33 @@ public function getCommande()
         return response()->json(['message' => 'Utilisateur non authentifié'], 401);
     }
 
-    \Log::info('Utilisateur authentifié pour mise à jour du statut de paiement, ID utilisateur: ' . $user->id);
-
     $uniqueInstanceId = $request->input('unique_instance_id');
-    \Log::info('ID unique de l\'instance du produit reçu pour mise à jour : ' . $uniqueInstanceId);
 
-    $cartItem = Shop::where('user_id', $user->id)->where('unique_instance_id', $uniqueInstanceId)->first();
+    if (!$uniqueInstanceId) {
+        \Log::error('ID unique manquant pour la mise à jour.');
+        return response()->json(['message' => 'ID unique manquant pour la mise à jour.'], 400);
+    }
 
-    if (!$cartItem) {
+    // Vérifiez que vous mettez à jour toutes les instances correspondant à l'identifiant unique
+    $cartItems = Shop::where('user_id', $user->id)
+                     ->where('unique_instance_id', $uniqueInstanceId)
+                     ->get();
+
+    if ($cartItems->isEmpty()) {
         \Log::error('Produit non trouvé dans le panier pour mise à jour du statut.');
         return response()->json(['message' => 'Produit non trouvé dans le panier'], 404);
     }
 
-    $cartItem->status = 'payer';
-    $cartItem->save();
-    \Log::info('Statut du produit mis à jour à "payer" pour l\'instance du produit avec ID unique : ' . $uniqueInstanceId);
+    foreach ($cartItems as $cartItem) {
+        $cartItem->status = 'payer';
+        $cartItem->save();
+        \Log::info('Statut du produit mis à jour à "payer" pour l\'instance du produit avec ID unique : ' . $uniqueInstanceId);
+    }
 
-    return response()->json(['message' => 'Statut du produit mis à jour à "payé"'], 200);
+    return response()->json(['message' => 'Statut des produits mis à jour à "payé"'], 200);
 }
+
+
 
 
 

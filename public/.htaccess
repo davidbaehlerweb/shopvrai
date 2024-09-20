@@ -1,21 +1,22 @@
 <IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
-
     RewriteEngine On
 
-    # Handle Authorization Header
+    # Traiter les en-têtes d'autorisation
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
+    # Rediriger les slashes finaux si ce n'est pas un dossier
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
+    # Ne pas réécrire si le fichier ou le dossier existe
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Rediriger toutes les requêtes non-résolues vers index.html
+    RewriteRule ^ /index.html [L]
+
+    # Gestion des erreurs 404
+    ErrorDocument 404 /index.html
 </IfModule>
+# Bloquer l'accès à votre site pour tester si .htaccess est actif

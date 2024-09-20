@@ -9,7 +9,7 @@ import ResponsiveMenu from './ResponsiveMenu';
 import { useNavigate } from 'react-router-dom';
 import './navbar.css';
 import ResponsiveMenuClient from './ResponsiveMenuClient';
-
+import Logo from '../../assets/logoshop.png'; // Changez l'extension pour .png
 
 const NavbarAdmin = () => {
     const [open, setOpen] = React.useState(false);
@@ -103,11 +103,9 @@ return () => {
             <nav className={isFixed ? 'navbar-fixed' : ''}>
                 <div className="container flex justify-between items-center py-8">
                     {/*Logo  */}
-                    <div className='text-2xl flex items-center gap-2 font-bold uppercase'>
-                        <FaDumbbell />
-                        <p>Coders</p>
-                        <p className='text-secondary'>Gym</p>
-                    </div>
+                    <div className='text-4xl flex items-center gap-2 font-bold uppercase'>
+                <img src={Logo} alt="Site Logo" className="h-40 w-auto" />
+            </div>
                     {/*Menu  */}
                     <div className='hidden md:block'>
                         <ul className='flex items-center gap-6 text-gray-600'>

@@ -17,7 +17,7 @@ const Register = () => {
     const [showModal, setShowModal] = useState(false); // État pour le modal
     const [timeoutId, setTimeoutId] = useState(null); // Pour gérer le délai de vérification de l'email
 
-    const clientId = "580332257996-nhteq0dh32m410tgfql9klnu9o8cj9dk.apps.googleusercontent.com";
+    const clientId = import.meta.env.GOOGLE_CLIENT_ID;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -148,19 +148,9 @@ const Register = () => {
                     <h3 className="text-2xl font-extrabold text-center text-dark-grey-900">Inscription</h3>
                     <p className="text-center text-grey-700">Créez votre compte</p>
                     
-                    <GoogleLogin
-                        clientId={clientId}
-                        buttonText="Créez son compte avec Google"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    />
+                    
 
-                    <div className="flex items-center my-3">
-                        <hr className="h-0 border-b border-solid border-grey-500 grow" />
-                        <p className="mx-4 text-grey-600">ou</p>
-                        <hr className="h-0 border-b border-solid border-grey-500 grow" />
-                    </div>
+                    
 
                     <div className="space-y-4">
                         <label htmlFor="name" className="block text-sm font-medium text-grey-900">Nom*</label>

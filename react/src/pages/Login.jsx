@@ -5,7 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import axios from 'axios';
 
-const clientId = "580332257996-nhteq0dh32m410tgfql9klnu9o8cj9dk.apps.googleusercontent.com";
+const clientId = import.meta.env.GOOGLE_CLIENT_ID;
 
 const Login = () => {
   const nav = useNavigate();
@@ -101,21 +101,9 @@ const Login = () => {
           <h3 className="text-2xl font-extrabold text-center text-dark-grey-900">Connexion</h3>
           <p className="text-center text-grey-700">Entrez votre email et mot de passe</p>
 
-          <GoogleLogin
-            clientId={clientId}
-            buttonText="Connectez-vous avec Google"
-            onSuccess={handleGoogleLoginSuccess}
-            onFailure={handleGoogleLoginFailure}
-            cookiePolicy={'single_host_origin'}
-          />
+          
 
-          {googleError && <div className="text-red-500 text-sm mt-2">{googleError}</div>} {/* Affiche un message d'erreur Google */}
-
-          <div className="flex items-center mb-3">
-            <hr className="h-0 border-b border-solid border-grey-500 grow" />
-            <p className="mx-4 text-grey-600">ou</p>
-            <hr className="h-0 border-b border-solid border-grey-500 grow" />
-          </div>
+          
 
           <label htmlFor="email" className="block text-sm font-medium text-grey-900">Email*</label>
           <input

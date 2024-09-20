@@ -1,0 +1,6 @@
+regex:GOOGLE_CLIENT_ID==>REMOVED
+regex:GOOGLE_CLIENT_SECRET==>REMOVED
+regex:StripeClient\(.*?\)==>REMOVED
+regex:sk_live_.*==>REMOVED
+regex:pk_live_.*==>REMOVED
+regex:MAIL_PASSWORD=.*==>REMOVED

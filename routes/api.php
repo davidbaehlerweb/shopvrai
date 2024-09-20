@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 
 Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'login'])->name('api.login');
 
 Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'getUser']);
 
@@ -44,9 +44,7 @@ Route::post('/products/{id}', [ProduitsController::class, 'update']);
 Route::delete('/products/{id}', [ProduitsController::class, 'destroy']);
 
 
-Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
-Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
-Route::post('/google', [AuthController::class, 'googleLogin']);
+
 
 
 
@@ -69,30 +67,24 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/produits'); // Redirige vers une page spécifique après vérification
+    return redirect('/'); // Redirige vers une page spécifique après vérification
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-//Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-//Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
-// Route pour afficher le formulaire de demande de réinitialisation de mot de passe
-//Route::get('/forgot-password', [PasswordResetController::class, 'showLinkRequestForm'])->name('password.request');
 
-// Route pour envoyer le lien de réinitialisation de mot de passe
-//Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
-// Route pour envoyer le lien de réinitialisation de mot de passe
-Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('api.password.email');
 
 // Route pour réinitialiser le mot de passe
 // Route pour réinitialiser le mot de passe via l'API
-Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
+Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('api.password.update');
 
 
 
 // Route pour rediriger vers votre application React au lieu de Blade
 Route::get('/reset-password/{token}', function ($token) {
     return redirect()->away('http://localhost:5173/reset-password/' . $token);
-})->name('password.reset');
+})->name('api.password.reset');
 
 
 // Route pour afficher le formulaire de réinitialisation de mot de passe

@@ -18,7 +18,7 @@ const Produits = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/products');
+                const response = await axios.get('https://laravel-react-shop-me/api/products');
                 setProducts(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 429) {
@@ -49,12 +49,12 @@ const Produits = () => {
             }
     
             // Chargez le cookie CSRF d'abord
-            await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
+            await axios.get('https://laravel-react-shop-me/sanctum/csrf-cookie', { withCredentials: true });
     
              // Vérifiez le token utilisé pour la requête
     
             // Ensuite, faites la requête pour obtenir les informations utilisateur
-            const response = await axios.get('http://localhost:8000/api/user', {
+            const response = await axios.get('https://laravel-react-shop-me/api/user', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
