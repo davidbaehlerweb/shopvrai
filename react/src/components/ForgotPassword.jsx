@@ -18,7 +18,7 @@ const ForgotPassword = () => {
     }
   
     try {
-      const response = await axios.post('http://localhost:8000/api/forgot-password', { email });
+      const response = await axios.post('https://laravel-react-shop-me.com/api/forgot-password', { email });
 
       setMessage(response.data.message);
       setError('');

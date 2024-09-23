@@ -10,7 +10,7 @@ const SearchBar = ({ setResults }) => {
 
     const handleSearch = debounce(async (value) => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/search?query=${value}`);
+            const response = await axios.get(`https://laravel-react-shop-me.com/api/search?query=${value}`);
             setResults(response.data);
         } catch (error) {
             console.error('Erreur lors de la recherche', error);

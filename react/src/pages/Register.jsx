@@ -56,7 +56,7 @@ const Register = () => {
             return;
         }
 
-        axios.post('http://localhost:8000//auth/google', { token: response.tokenId })
+        axios.post('https://laravel-react-shop-me.com//auth/google', { token: response.tokenId })
             .then(response => {
                 localStorage.setItem('token', response.data.token);
                 nav('/'); // Assurez-vous que cette redirection est correcte
@@ -78,7 +78,7 @@ const Register = () => {
 
     const checkEmailExists = async (email) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/check-email', { email });
+            const response = await axios.post('https://laravel-react-shop-me.com/api/check-email', { email });
             if (response.data.available === false) {
                 setEmailError('Cet email existe déjà');
             } else {
@@ -115,7 +115,7 @@ const Register = () => {
         }
     
         try {
-            const response = await axios.post('http://localhost:8000/api/register', formData);
+            const response = await axios.post('https://laravel-react-shop-me.com/api/register', formData);
             
             
             setShowModal(true);

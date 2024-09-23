@@ -16,7 +16,7 @@ const ModifInfo = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user', {
+        const response = await axios.get('https://laravel-react-shop-me.com/api/user', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
@@ -42,7 +42,7 @@ const ModifInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/update-user', {
+      await axios.post('https://laravel-react-shop-me.com/api/update-user', {
         name,
         email,
       }, {

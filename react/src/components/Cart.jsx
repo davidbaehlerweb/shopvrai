@@ -15,7 +15,7 @@ const Cart = () => {
   const { prix, id } = useParams(); 
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/payer", {
+    fetch("https://laravel-react-shop-me.com/api/payer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: { amount: prix * 100 } }),

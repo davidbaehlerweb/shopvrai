@@ -44,7 +44,7 @@ const Login = () => {
     const token = response.tokenId;
     try {
         // Envoyer la requête au backend Laravel
-        const res = await axios.post('http://localhost:8000/api/google', { token });
+        const res = await axios.post('https://laravel-react-shop-me.com/api/google', { token });
         // Enregistrez le token de l'utilisateur
         localStorage.setItem('token', res.data.token);
         nav('/'); // Redirigez après la connexion réussie
@@ -66,10 +66,10 @@ const Login = () => {
 
     try {
         // Obtenez le cookie CSRF avant d'envoyer la requête
-        await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
+        await axios.get('https://laravel-react-shop-me.com/sanctum/csrf-cookie', { withCredentials: true });
 
         // Ensuite, envoyez la requête de connexion
-        const response = await axios.post('http://localhost:8000/api/login', formData, { withCredentials: true });
+        const response = await axios.post('https://laravel-react-shop-me.com/api/login', formData, { withCredentials: true });
 
         
 

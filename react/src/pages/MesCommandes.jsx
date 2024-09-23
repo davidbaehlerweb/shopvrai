@@ -14,7 +14,7 @@ const MesCommandes = () => {
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/get-commande', {
+      const response = await axios.get('https://laravel-react-shop-me.com/api/get-commande', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },

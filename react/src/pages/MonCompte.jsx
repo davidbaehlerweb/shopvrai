@@ -13,7 +13,7 @@ const MonCompte = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user', {
+        const response = await axios.get('https://laravel-react-shop-me.com/api/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Utilisez le token de l'utilisateur connecté
           },
@@ -39,7 +39,7 @@ const MonCompte = () => {
 
   const handleDeleteAccount = async () => {
     try {
-      await axios.delete('http://localhost:8000/api/delete-account', {
+      await axios.delete('https://laravel-react-shop-me.com/api/delete-account', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

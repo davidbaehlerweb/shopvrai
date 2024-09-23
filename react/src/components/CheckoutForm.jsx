@@ -120,7 +120,7 @@ const updateAllItems = async () => {
     }
 
     // Obtenez tous les identifiants uniques des produits dans le panier
-    const cartResponse = await axios.get('http://localhost:8000/api/get-cart', {
+    const cartResponse = await axios.get('https://laravel-react-shop-me.com/api/get-cart', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -144,9 +144,9 @@ const testUpdate = async (uniqueInstanceId) => {
       return;
     }
 
-    await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
+    await axios.get('https://laravel-react-shop-me.com/sanctum/csrf-cookie', { withCredentials: true });
 
-    const response = await axios.post('http://localhost:8000/api/update-payment-status', {
+    const response = await axios.post('https://laravel-react-shop-me.com/api/update-payment-status', {
       unique_instance_id: uniqueInstanceId // Utilisation de l'ID unique
     }, {
       headers: {

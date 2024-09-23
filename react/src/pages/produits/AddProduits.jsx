@@ -22,7 +22,7 @@ const AddProduits = () => {
         if (image) formData.append('image', image);
 
         try {
-            const response = await axios.post('http://localhost:8000/api/products', formData, {
+            const response = await axios.post('https://laravel-react-shop-me.com/api/products', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

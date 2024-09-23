@@ -21,7 +21,7 @@ const ModifMp = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/update-password', {
+      const response = await axios.post('https://laravel-react-shop-me.com/api/update-password', {
         current_password: currentPassword,
         new_password: newPassword,
         new_password_confirmation: newPasswordConfirm

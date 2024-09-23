@@ -15,7 +15,7 @@ const Panier = () => {
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/get-cart', {
+      const response = await axios.get('https://laravel-react-shop-me.com/api/get-cart', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -31,7 +31,7 @@ const Panier = () => {
   // Fonction pour supprimer un produit du panier
   const removeFromCart = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/remove-from-cart/${id}`, {
+      await axios.delete(`https://laravel-react-shop-me.com/api/remove-from-cart/${id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -92,7 +92,7 @@ const Panier = () => {
                 {item.produit && item.produit.image ? (
                   <img
                     className="w-16 h-16 rounded-full"
-                    src={`http://localhost:8000/storage/${item.produit.image}`}
+                    src={`https://laravel-react-shop-me.com/storage/${item.produit.image}`}
                     alt={item.produit.nom}
                   />
                 ) : (

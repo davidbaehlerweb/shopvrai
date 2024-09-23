@@ -12,7 +12,7 @@ const ProduitsAdmin = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/products');
+                const response = await axios.get('https://laravel-react-shop-me.com/api/products');
                 setProducts(response.data);
             } catch (error) {
                 
@@ -24,7 +24,7 @@ const ProduitsAdmin = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/api/products/${id}`);
+            await axios.delete(`https://laravel-react-shop-me.com/api/products/${id}`);
             
             // Mettre à jour l'état des produits après suppression
             setProducts(products.filter(product => product.id !== id));
@@ -60,7 +60,7 @@ const ProduitsAdmin = () => {
                             <div key={product.id} className="card">
                                 <div className="relative h-56 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500">
                                     <img
-                                        src={`http://localhost:8000/storage/${product.image}`}
+                                        src={`https://laravel-react-shop-me.com/storage/${product.image}`}
                                         alt="card-image"
                                         className="object-cover w-full h-full"
                                     />

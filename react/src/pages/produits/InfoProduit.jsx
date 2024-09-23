@@ -40,7 +40,7 @@ const InfoProduit = () => {
                 <div className="card bg-white shadow-lg rounded-lg p-8 max-w-md w-full"> {/* Ajuster les dimensions de la carte */}
                     <div className="relative overflow-hidden text-white rounded-xl h-64 mb-6"> {/* Augmenter la hauteur de l'image */}
                         <img
-                            src={`http://localhost:8000/storage/${product.image}`}
+                            src={`https://laravel-react-shop-me.com/storage/${product.image}`}
                             alt="card-image"
                             className="object-cover w-full h-full"
                         />

@@ -18,7 +18,7 @@ const Produits = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('https://laravel-react-shop-me/api/products');
+                const response = await axios.get('https://laravel-react-shop-me/api/api/products');
                 setProducts(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 429) {
@@ -90,7 +90,7 @@ const Produits = () => {
 
         try {
             console.log('Adding product to cart:', productId);
-            const response = await axios.post('http://localhost:8000/api/add-to-cart', { product_id: productId }, {
+            const response = await axios.post('https://laravel-react-shop-me.com/api/add-to-cart', { product_id: productId }, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -129,7 +129,7 @@ const Produits = () => {
                             <div key={product.id} className="card bg-white shadow-lg rounded-lg overflow-hidden">
                                 <div className="relative h-56 overflow-hidden text-white bg-blue-gray-500">
                                     <img
-                                        src={`http://localhost:8000/storage/${product.image}`}
+                                        src={`https://laravel-react-shop-me.com/storage/${product.image}`}
                                         alt="card-image"
                                         className="object-cover w-full h-full"
                                     />
