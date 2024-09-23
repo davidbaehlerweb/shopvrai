@@ -100,7 +100,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
-    
+        console.log(formData)
         validateEmail(formData.email);
         await handleEmailBlur();
     
@@ -175,11 +175,7 @@ const Register = () => {
                             placeholder="mail@loopple.com" 
                             className="w-full px-4 py-2 text-sm bg-grey-200 border rounded-2xl outline-none placeholder-grey-700 focus:bg-grey-400"
                         />
-                        {emailError && (
-                            <p className={emailError === 'Email valide' ? 'text-green-500' : 'text-red-500'}>
-                                {emailError}
-                            </p>
-                        )}
+                        
 
                         <label htmlFor="password" className="block text-sm font-medium text-grey-900">Mot de passe*</label>
                         <input 

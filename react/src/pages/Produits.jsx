@@ -18,7 +18,8 @@ const Produits = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('https://laravel-react-shop-me/api/api/products');
+                const response = await axios.get('https://laravel-react-shop-me.com/api/products');
+
                 setProducts(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 429) {
